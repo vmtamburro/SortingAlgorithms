@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1542053238 source:e:\assignment 5\main.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	<cstdio>
+	<ctime>
+	"functionPrototype.h"
+
+1542053500 e:\assignment 5\functionprototype.h
+
+1542053364 source:e:\assignment 5\functiondefinition.cpp
+	"functionPrototype.h"
+	<iostream>
+	<fstream>
+	<algorithm>
+
