@@ -1,9 +1,16 @@
+/* This program randomly generates a large array of 10,000
+ints and compares the sorting time between bubble sort,
+selection sort, and std::sort using timers
+*/
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
-#include <cstdio>
-#include <ctime>
+
+#include <stdio.h>
+#include <time.h>
+#include <math.h>
 
 #include "functionPrototype.h"
 
@@ -13,36 +20,35 @@ using namespace std;
 
 int main()
 {
-//timer declarations
-std::clock_t start;
-float duration;
-
-//random number declarations
 unsigned seed = time(0);
 srand(seed);
 
 int numbers[SIZE];
-for (int &random_number : numbers)
-{
-    random_number = (rand()%(MAX_VALUE - MIN_VALUE + 1)) + MIN_VALUE;
-}
+    for (int &random_number : numbers)
+        random_number = (rand()%(MAX_VALUE - MIN_VALUE + 1)) + MIN_VALUE;
 
-//start timer
-start = std::clock();
+int numbersFirstCopy[SIZE];
+    for (int count = 0; count < SIZE; count ++)
+        numbersFirstCopy[count] = numbers[count];
 
-//execute algorithm
-stdSortFunction(numbers, SIZE);
+int numbersSecondCopy[SIZE];
+    for (int count = 0; count < SIZE; count ++)
+        numbersSecondCopy[count] = numbers[count];
 
-//calculate duration
-duration = ((std::clock() - start) * 1000) / (double) CLOCKS_PER_SEC;
+clock_t t;
 
-//print duration
-cout << "Algorithm took " << duration << " milliseconds.";
+t = clock();
+bubbleSort(numbers, SIZE);
+t = clock() - t;
+cout << "Bubble Sort executed in " << (((float)t)*1000)/CLOCKS_PER_SEC << " milliseconds.\n";
 
+t = clock();
+selectionSort(numbersFirstCopy, SIZE);
+t = clock()-t;
+cout << "Selection Sort executed in " << (((float)t) * 1000) / CLOCKS_PER_SEC << " milliseconds.\n";
 
-selectionSort(numbers, SIZE);
-
-stdSortFunction(numbers, SIZE);
-
-
+t = clock();
+stdSortFunction(numbersSecondCopy, SIZE);
+t = clock()-t;
+cout << "std::sort executed in " << (((float)t) * 1000) / CLOCKS_PER_SEC << " milliseconds.\n";
 }
